@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section style="margin-top: -10px;" class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Последние новости</h1>
+          <!-- <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+          <p> -->
+            <!-- <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
+          <!-- </p> -->
+        </div>
+      </div>
+    </section>
+
+  {% for item in object_list %} 
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="wrapperNews">
+              
+            {% if item.img %}
+            <img style="float:left" width="400px" src="{{item.img.url}}">
+            {% endif %}
+            <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg> -->
+            <div style="margin-left: 10px" class="card-body">
+              <p  class="card-text text-center"><h2 class="text-center">{{item.title}}</h2></p>
+             <div  style="margin-left: 420px;">
+               <p  class=" card-text text-end"><h5>{{item.content|slice:":400"|linebreaks}} ...</h5></p>
+              
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+
+              
+              </div>
+            </div>
+                  
+                   
+                </br>
+                  <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Просмотр</button> -->
+                  <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                </div>
+
+                {% if user.is_staff %}
+
+              </div>
+              <div style="display: flex; margin-top: 10px;">
+              <div >
+              <form action="news-update/{{item.id}}" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-primary">изменить новость</button>
+               </form>
+               
+              </div>
+              </br>
+              <div style="margin-left: 10px;">
+              <a  style="width: 100px white-space"class="btn btn-primary" href="{%url 'news_detail' item.pk %}">просмотр новости</a>
+                 </div>
+
+              </br>
+              <div  style="margin-left: 10px;">
+                
+              <form action="news-delete/{{item.id}}" method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn btn-primary">удалить новость</button>
+               </form>
+              </div>
+              </div>
+               <div  class="" style="margin-top: 10px ; margin-bottom: 10px  ; margin-left: 1100px">
+                
+                <small class="text-body-secondary">{{item.time_update|date:"d-m-Y H:i:s"}}</small>
+                
+</div>
+
+
+{% else %}
+</div>
+</br>
+<div class="text-center" style="margin-bottom: 10px;">
+<a  style="width: 100px white-space" class="btn btn-primary" href="{%url 'news_detail' item.pk %}">Просмотр новости</a>
+   </div>
+            {% endif %}
+
+          
+          
+       
+    
+      </div>
+  </div>
+  </div>
+  </div>
+  
+
+{% endfor %}
+
+{% if user.is_staff %}
+<a style="margin: 0 auto; display: block ;width: 160px; white-space:nowrap;margin-top: 40px ;margin-bottom: 50px;" class="btn btn-primary" href='news-create/{{item.id}}'>Добавить новость</a>
+
+{% endif %}
+
+    {% endblock %}

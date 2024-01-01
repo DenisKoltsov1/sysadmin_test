@@ -1,0 +1,34 @@
+
+{%extends  'base.html' %}
+
+{% block content %}
+
+
+      {% if user.is_authenticated %}
+       <div class="Block" style="margin-bottom:25px;">
+                <br>Вы авторизованы как: {{user.username}}
+        </div>
+      {% else %}
+        <div class="Block" style="margin-bottom:25px;">
+            <br>Вы не авторизованы
+       </div>
+      {% endif %}
+      
+
+    <div  style="margin-top: 55px;" class="wrapper">
+        
+    
+          <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-primary">Вход</button>
+          </form> 
+        
+    </div>   
+    
+
+
+
+  {% endblock %}
+
+

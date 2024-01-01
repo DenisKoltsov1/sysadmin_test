@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+         
+              <section   class="py-5 text-center container">
+                <div class="row py-lg-5">
+                  <div style="margin-bottom: -50px;"class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Цены на услуги</h1>
+                    <!-- <p class="lead text-body-secondary">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+                    <p> -->
+                      <!-- <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                      <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
+                    <!-- </p> -->
+                  </div>
+                </div>
+              </section>
+          
+            {% for item in object_list %} 
+            <div    style="margin-bottom: -80px;" class="album py-5 bg-body-tertiary">
+              <div    class="container">
+                  <div class="col">
+                    <div style="margin-bottom: 80px;" class="card shadow-sm">
+                      {% if item.img %}
+                      <img width="800px" src="{{item.img.url}}">
+                      {% endif %}
+                      <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></svg> -->
+                      <div  class="card-body">
+                        <h2 style=" white-space: nowrap" class="card-text">{{item.title}}</h2>
+                        <h2 class="card-text">{{item.content}}</h2>
+                        <h2   class="card-text">{{item.price}} <span > рублей</span></h2>
+                        <div class="d-flex justify-content-between align-items-center">
+
+                          <small class="text-body-secondary">{{item.time_update|date:"d-m-Y H:i:s"}}</small>
+          
+                        {% if user.is_staff %}
+          
+                        </div>
+                        <a style="margin-top:20px;" class="btn btn-secondary" href='price-update/{{item.id}}'>Изменить услугу</a>
+                        <a style="margin-top:20px;" class="btn btn-danger" href='price-delete/{{item.id}}'>Удалить услугу</a>
+                      </div>
+          
+                      {% endif %}
+          
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+          {% endfor %}
+          
+          {% if user.is_staff %}
+          <a style="margin: 0 auto; display: block ;width: 150px; white-space:nowrap ;margin-top: 40px ;margin-bottom: 50px; " class="btn btn-primary" href='price-create/'>Добавить услугу</a>
+          {% endif %}
+            
+              {% endblock %}

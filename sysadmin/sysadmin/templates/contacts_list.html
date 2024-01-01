@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+    
+    
+    <!-- Контейнер выравнивает по ширине и по центру -->
+    <div style="margin-top: 40px;" class="containers">
+
+        <!-- content содержит содержимое формы -->
+        <div class="content">
+  
+          <!-- Левая колонка: адрес, телефоны, email. Можете добавить свое -->
+          <div class="left-side">
+            <div class="address details">
+  
+              <!-- Вместо классов: название шрифтовых иконок (fontawesome.com) -->
+              <i class="fas fa-map-marker-alt"></i>
+  
+              <!-- topic - заголовок, text-one, text-two - текст -->
+              <div class="topic">Адрес</div>
+              <div class="text-one">г. Москва</div>
+              <div class="text-two">Пресненская наб., 8 стр. 1</div>
+            </div>
+            <div class="phone details">
+              <i class="fas fa-phone-alt"></i>
+              <div class="topic">Телефон</div>
+              <div class="text-one">8-912-49-47-496</div>
+              <div class="text-two">8-900-000-00-00</div>
+            </div>
+            <div class="email details">
+              <i class="fas fa-envelope"></i>
+              <div class="topic">Email</div>
+              <div class="text-one">dublin87@mail.ru</div>
+              <div class="text-two">admin@site.com</div>
+            </div>
+          </div>
+  
+          <!-- Правая колонка: сама форма -->
+          <div class="right-side">
+  
+            <!-- Заголовок для формы -->
+            <div class="topic-text">Отправьте нам сообщение</div>
+  
+            <!-- Какой-то дополнительный текст -->
+            <p>
+              Если у вас есть какие-то вопросы или предложения по сотрудничеству -
+              заполните форму ниже
+            </p>
+  
+            <!-- Форма обратной связи -->
+            <form action="postuser/" method="post">
+            {% csrf_token %}
+              <!-- Каждый input для выравнивания вкладываем в блок input-box -->
+              <div class="input-box">
+                <input type="text" placeholder="Ваше имя"  name="name">
+              </div>
+              <div class="input-box">
+                <input type="text" placeholder="Введите email"  name="email">
+              </div>
+              <div class="input-box">
+                <input type="text" placeholder="Введите телефон"  name="phone"">
+              </div>
+              <div class="input-box message-box">
+                <textarea placeholder="Сообщение"  name="message"></textarea>
+              </div>
+              <div class="button" >
+                <input  class="button" type="submit"  />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% if user.is_staff %}
+      <a style="margin: 0 auto; display: block ;width: 150px; white-space:nowrap ;margin-top: 40px ;margin-bottom: 50px;" class="btn btn-primary" href="viewContact/"">Посмотреть  контакты</a>
+      {% endif %}
+
+
+
+{% endblock %}
